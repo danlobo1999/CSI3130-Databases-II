@@ -4,7 +4,7 @@ Class: CSI 3130
 Created: October 31, 2022 12:30 PM
 Type: Lab
 
-# Lab 6 - **C  Programming: Pointers and Structures**
+# Lab 6 - **C  Programming: Pointers, Structures and Dynamic Memory Allocation**
 
 ## Pointers
 
@@ -204,6 +204,69 @@ void bubbleSort(int size, int n[size]){
 
 ## Structures
 
+- A structure is a user-defined datatype in C language which allows us to combine data of different types together.
+- Structures helps to construct a complex data type which is more meaningful.
+- It is somewhat similar to an Array, but an array holds data of similar type only. But structure on the other hand, can store data of any type, which is practical more useful.
+
+```c
+// Example:
+
+struct Student
+{
+    char name[25];
+    int age;
+    char branch[10];
+};
+```
+
+Here struct Student declares a structure to hold the details of a student which consists of 3 data fields, namely name, age, and branch. These fields are called structure elements or members.
+
+Each member can have different datatype, like in this case, name is an array of char type and age is of int type etc. Student is the name of the structure and is called as the structure tag.
+
+- Declaring Structure variables
+
+```c
+struct Student
+{
+    char name[25];
+    int age;
+    char branch[10];
+};
+
+struct Student S1, S2;
+
+//---------------------------------------------------------
+
+struct Student
+{
+    char name[25];
+    int age;
+    char branch[10];
+}S1, S2;
+```
+
+- Initializing a structure
+
+```c
+struct Patient
+{
+    float height;
+    int weight;  
+    int age; 
+};
+
+struct Patient p1 = { 180.75 , 73, 23 };    //initialization
+
+//---------------------------------------------------------
+
+struct Patient p1;
+p1.height = 180.75;     //initialization of each member separately
+p1.weight = 73;
+p1.age = 23;
+```
+
+### Programming examples
+
 ```c
 /*Developed by Johan Fernandes
 Revised by Daniel Lobo
@@ -272,5 +335,106 @@ int main(void) {
     printf("%d : %s : %s \n",
     (list + i)->id,(list + i)->name,(list + i)->univ);
   }
+}
+```
+
+## Dynamic Memory Allocation
+
+- When a variable or an array of any data type is declared, the space occupied by them in the system's memory remains constant throughout the execution of the program.
+- Sometimes the constant space allocated at the compile-time may fall short, and to increase the space during run-time we came through the concept of Dynamic Memory Allocation.
+- Allocation and Deallocation of memory at run-time in C are done using the concept of Dynamic Memory Allocation. It is a method in which we use different library functions like malloc(), calloc(), realloc(), and free() to allocate and deallocate a memory block during run-time.
+- There are two types of memory in our machines, one is Static Memory and another one is Dynamic Memory. When the memory is allocated during compile-time it is stored in the Static Memory and it is known as Static Memory Allocation, and when the memory is allocated during run-time it is stored in the Dynamic Memory and it is known as Dynamic Memory Allocation.
+
+**malloc() Method:** malloc()  is used to allocate a memory block in the heap section of the memory of some specified size (in bytes) during the run-time of a C program. It is present in <stdlib.h> header file.
+
+```c
+//Syntax
+(cast-data-type *)malloc(size-in-bytes);
+
+//Example
+int *ptr = (int *)malloc(sizeof(int));
+```
+
+**calloc() Method:** calloc() is also used to allocate memory blocks in the heap section, but it is generally used to allocate a sequence of memory blocks (contiguous memory) like an array of elements. It is also present in <stdlib.h> header file.
+
+```c
+//Syntax
+(cast-data-type *)calloc(num, size-in-bytes);
+
+//Example
+int *arr = (int *)calloc(5, sizeof(int));
+```
+
+**realloc() Method:** realloc() is used to reallocate a memory block, here re-allocate means to increase or decrease the size of a memory block previously allocated using malloc() or calloc() methods.
+
+```c
+//Syntax
+(cast-data-type *)realloc(ptr, new-size-in-bytes)
+
+//Example
+int *arr1 = (int *)malloc(n * sizeof(int));
+int *arr3 = (int *)realloc(arr1, (n / 2) * sizeof(int));
+```
+
+**free() Method:** free() is used to free or deallocate a memory block previously allocated using malloc() and calloc() functions during run-time of our program.
+
+```c
+//Syntax
+free( pointer );
+
+//Example
+int *arr = (int *)calloc(5, sizeof(int));
+free(arr);
+```
+
+### Programming examples
+
+```c
+//Program for Dynamic Memory Allocation using malloc()
+
+//Below is a program on dynamic memory allocation using malloc() and 
+//clearing out memory space using free(). sizeof() returns the number 
+//of bytes occupied by any datatype, in this case by an integer. 
+
+#include <stdio.h>
+
+int main()
+{
+    int n, i, *ptr, sum = 0;
+
+    printf("\n\nEnter number of elements: ");
+    scanf("%d", &n);
+
+    // dynamic memory allocation using malloc()
+    ptr = (int *) malloc(n*sizeof(int));
+
+    if(ptr == NULL) // if empty array
+    {
+        printf("\n\nError! Memory not allocated\n");
+        return 0;   // end of program
+    }
+
+    printf("\n\nEnter elements of array: \n\n");
+    for(i = 0; i < n; i++)
+    {
+        // storing elements at contiguous memory locations
+        scanf("%d", ptr+i);    
+        sum = sum + *(ptr + i);
+    }
+
+    // printing the array elements using pointer to the location
+    printf("\n\nThe elements of the array are: ");
+    for(i = 0; i < n; i++)
+    {
+        printf("%d  ",ptr[i]);    // ptr[i] is same as *(ptr + i)
+    }
+
+    /* 
+        freeing memory of ptr allocated by malloc 
+        using the free() method
+    */
+    free(ptr);
+
+    return 0;
 }
 ```
