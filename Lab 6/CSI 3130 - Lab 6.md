@@ -17,7 +17,7 @@ A pointer is merely an address of where a datum or structure is stored
     
 - To set a pointer to a variable’s address use & before the variable. Eg. x = &y;
 *& means “return the memory address of” in this example, x will now point to y, that is, x stores y’s address*
-- If you access x, you merely get the address. To get the value that x points to, use * as in *x
+- If you access x, you merely get the address. To get the value that x points to, use * as in *x  
 *x = *x + 1; will add 1 to y
 
 ### Using pointers with arrays
