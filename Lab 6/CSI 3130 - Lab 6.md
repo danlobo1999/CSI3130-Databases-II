@@ -22,10 +22,10 @@ A pointer is merely an address of where a datum or structure is stored
 
 ### Using pointers with arrays
 
-- Consider a pointer **int *ip ****and an array **int z[10]**
-- **ip = &z[0];** sets our pointer to point at the first element of the array
-In fact, z is a pointer as well and we can access **z[0]** either using **z[0], *ip, or *z**
-- To access **z[1]**, we can do **z[1]** as usual, or we can add 1 to the location pointed to by **ip** or **z**, that is ***(ip+1)** or ***(z+1)**
+- Consider a pointer int *ip and an array int z[10]
+- ip = &z[0]; sets our pointer to point at the first element of the array
+In fact, z is a pointer as well and we can access z[0] either using z[0], *ip, or *z
+- To access z[1], we can do z[1] as usual, or we can add 1 to the location pointed to by **ip** or **z**, that is ***(ip+1)** or ***(z+1)**
     
     Note: While we can reset ip to be ip = ip+1, we cannot reset z to be z = z+1. Adding 1 to ip will point to z[1], but if z = z + 1 were legal, we would lose access to the first array location since z is our array variable.
     
