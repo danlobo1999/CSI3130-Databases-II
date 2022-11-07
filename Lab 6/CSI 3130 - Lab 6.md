@@ -13,7 +13,7 @@ A pointer is merely an address of where a datum or structure is stored
 - All pointers are typed based on the type of entity that they point to.
 - To declare a pointer, use * preceding the variable name as in int *x;
     
-    (** with a pointer variable indicates a deferencing operation)*
+    (* with a pointer variable indicates a deferencing operation)
     
 - To set a pointer to a variable’s address use & before the variable. Eg. x = &y;
 *& means “return the memory address of” in this example, x will now point to y, that is, x stores y’s address*
